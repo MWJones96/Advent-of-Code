@@ -1,12 +1,12 @@
 # Advent of Code in Rust
 
-Solutions to the [Advent of Code](https://adventofcode.com/) 2025 and 2024 puzzles, written in Rust and run from a single command-line binary.
+Solutions to the [Advent of Code](https://adventofcode.com/) puzzles, written in Rust and run from a single command-line binary. Each year is a module, so new events slot in alongside the old ones.
 
 ## Overview
 
 Each puzzle day lives in its own module with a `part1` and `part2` function. Puzzle input is embedded into the binary at compile time with `include_str!("input.txt")`, so the program needs no arguments beyond the year and, optionally, the day. Each part prints its result to standard output.
 
-Despite the repository name, the crate (`aoc2025`) covers two events: 2025 was solved first, and 2024 was worked through afterwards.
+Years currently in the crate: 2024, 2025 and 2026, the last scaffolded and ready for December.
 
 ## What's implemented
 
@@ -16,6 +16,7 @@ Despite the repository name, the crate (`aoc2025`) covers two events: 2025 was s
 | 2025 | 12 | Part 1 only. It prints a lower and upper bound on the answer, from area checks, rather than packing the shapes exactly. |
 | 2024 | 1 to 20 | Both parts solved. |
 | 2024 | 21 to 25 | Stubs that print "not implemented yet". |
+| 2026 | 1 to 12 | Stubs ready for the 2026 event. |
 
 Some solutions use external crates: Z3 (through the `z3` crate) solves the integer systems in 2024 day 13 and 2025 day 10, and `ordered-float` is used in 2025 day 8.
 
@@ -62,22 +63,28 @@ Running with no arguments prints the usage text.
 
 ```
 src/
-├── main.rs            # argument parsing and dispatch by year and day
-├── aoc2025/
-│   ├── mod.rs         # run_day / run_all for 2025 (days 1-12)
+├── main.rs            # argument parsing; YEARS lists each year's run_day / run_all
+├── aoc2024/
+│   ├── mod.rs         # run_day / run_all for 2024 (days 1-25)
 │   └── dayN/
 │       ├── dayN.rs    # part1, part2 and the dayN entry point
 │       └── input.txt  # puzzle input, embedded at compile time
-└── aoc2024/
-    ├── mod.rs         # run_day / run_all for 2024 (days 1-25)
-    └── dayN/          # same layout as 2025
+├── aoc2025/           # days 1-12, same layout
+└── aoc2026/           # days 1-12, same layout
 ```
 
 Some day directories also contain `test_input.txt` files with smaller sample inputs; the code does not load them.
 
+## Adding a year
+
+1. Copy the layout of an existing year to `src/aocYYYY/`, with a `mod.rs` exposing `run_day` and `run_all`.
+2. Add `mod aocYYYY;` and an entry in `YEARS` in `src/main.rs`.
+
+Advent of Code has 12 puzzles a year from 2025 onwards, so `aoc2026` has days 1 to 12. Each 2026 day has an empty `input.txt` so the crate builds; paste in your input on the day.
+
 ## Status and limitations
 
-- 2024 days 21 to 25 are placeholders.
+- 2024 days 21 to 25 and all of 2026 are placeholders.
 - 2025 day 12 reports a range rather than a single answer, and has no part 2.
 - There are no automated tests; solutions are checked by running them.
 - `Cargo.toml` declares `clipboard` and `sound` features, but no code uses them yet.

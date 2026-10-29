@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "aoc2025"
+name = "advent-of-code"
 version = "0.1.0"
 dependencies = [
  "once_cell",
